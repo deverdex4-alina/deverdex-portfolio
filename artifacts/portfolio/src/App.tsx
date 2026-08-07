@@ -7,58 +7,40 @@ import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 
-// Sections
-import { Hero } from '@/components/sections/Hero';
-import { About } from '@/components/sections/About';
-import { Projects } from '@/components/sections/Projects';
-import { Skills } from '@/components/sections/Skills';
-import { Experience } from '@/components/sections/Experience';
-import { Testimonials } from '@/components/sections/Testimonials';
-import { Contact } from '@/components/sections/Contact';
+// Pages
+import { Home } from '@/pages/Home';
+import { Services } from '@/pages/Services';
+import { WebDesign } from '@/pages/WebDesign';
+import { WebDevelopment } from '@/pages/WebDevelopment';
+import { MobileApps } from '@/pages/MobileApps';
+import { Branding } from '@/pages/Branding';
+import { Work } from '@/pages/Work';
+import { About } from '@/pages/About';
+import { Contact } from '@/pages/Contact';
+import { NotFound } from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
 
-function Home() {
+function AppRouter() {
   return (
     <div className="flex flex-col min-h-screen selection:bg-primary/30 selection:text-primary">
       <Navbar />
-      
-      <main className="flex-grow">
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Experience />
-        <Testimonials />
-        <Contact />
+      <main className="flex-grow pt-24">
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/services" component={Services} />
+          <Route path="/services/web-design" component={WebDesign} />
+          <Route path="/services/web-development" component={WebDevelopment} />
+          <Route path="/services/mobile-apps" component={MobileApps} />
+          <Route path="/services/branding" component={Branding} />
+          <Route path="/work" component={Work} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          <Route component={NotFound} />
+        </Switch>
       </main>
-      
       <Footer />
     </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-      <h1 className="text-6xl font-display font-bold text-primary mb-4">404</h1>
-      <p className="text-xl text-muted-foreground mb-8">This route does not exist.</p>
-      <a 
-        href="/" 
-        className="bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
-      >
-        Return Home
-      </a>
-    </div>
-  );
-}
-
-function AppRouter() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
   );
 }
 
