@@ -1,179 +1,192 @@
-import { Link, useLocation } from "wouter";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Monitor, Smartphone, PenTool, LayoutTemplate } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Menu, X } from 'lucide-react';
 
-const services = [
-  {
-    title: "Web Design",
-    href: "/services/web-design",
-    description: "Stunning, high-converting digital experiences.",
-    icon: LayoutTemplate,
+const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { 
+    label: 'Services', 
+    href: '/services',
+    dropdown: [
+      { label: 'Web Design', href: '/services#web-design', desc: 'Custom, high-converting designs' },
+      { label: 'Web Development', href: '/services#web-dev', desc: 'Fast, secure & scalable apps' },
+      { label: 'Mobile Apps', href: '/services#mobile', desc: 'Native & cross-platform solutions' },
+      { label: 'SEO & AEO', href: '/services#seo', desc: 'AI-first visibility optimization' },
+    ]
   },
-  {
-    title: "Web Development",
-    href: "/services/web-development",
-    description: "Robust, scalable web applications.",
-    icon: Monitor,
+  { 
+    label: 'Products', 
+    href: '/products', // Doesn't exist, we just mock
+    dropdown: [
+      { label: 'Foyer AI Chat', href: '#', desc: 'Conversational agent for your site' },
+      { label: 'Analytics Dashboard', href: '#', desc: 'Track your growth metrics' },
+    ]
   },
-  {
-    title: "Mobile Apps",
-    href: "/services/mobile-apps",
-    description: "Native and cross-platform mobile solutions.",
-    icon: Smartphone,
-  },
-  {
-    title: "Branding",
-    href: "/services/branding",
-    description: "Memorable brand identities and systems.",
-    icon: PenTool,
-  },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Experiments', href: '/experiments' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 export function Navbar() {
   const [location] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false); // Mobile accordion
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
 
   return (
-    <header
+    <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/80 backdrop-blur-md border-b border-white/5 py-4" : "bg-transparent py-6"
+        scrolled ? 'bg-[#080E14]/80 backdrop-blur-md border-b border-white/5 py-4' : 'bg-transparent py-6'
       }`}
     >
-      <div className="container mx-auto px-6 max-w-7xl">
-        <nav className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center font-display font-bold text-background text-lg group-hover:scale-105 transition-transform">
-              D
-            </div>
-            <span className="font-display font-bold text-xl tracking-tight text-foreground">
-              Deverdex
-            </span>
-          </Link>
+      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 z-50">
+          <div className="w-8 h-8 bg-[#00DCB9] rounded flex items-center justify-center">
+            <span className="text-[#080E14] font-display font-bold text-xl leading-none">D</span>
+          </div>
+          <span className="font-display font-bold text-xl text-white tracking-tight">Deverdex</span>
+        </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <div className="relative group">
-              <Link href="/services" className={`flex items-center gap-1 text-sm font-medium transition-colors ${location.startsWith("/services") ? "text-primary" : "text-muted-foreground group-hover:text-foreground"}`}>
-                Services <ChevronDown className="w-4 h-4 opacity-50 group-hover:rotate-180 transition-transform duration-300" />
+        {/* Desktop Nav */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {NAV_LINKS.map((link) => (
+            <div 
+              key={link.label} 
+              className="relative group"
+              onMouseEnter={() => setActiveDropdown(link.label)}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <Link 
+                href={link.href}
+                className={`text-sm font-medium flex items-center gap-1 transition-colors ${
+                  location === link.href ? 'text-white' : 'text-dever-muted hover:text-white'
+                }`}
+              >
+                {link.label}
+                {link.dropdown && <ChevronDown className="w-3 h-3 opacity-70" />}
               </Link>
               
-              {/* Mega Dropdown */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 w-[500px]">
-                <div className="bg-card border border-border rounded-xl p-4 shadow-2xl grid grid-cols-2 gap-2 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
-                  {services.map((service) => (
-                    <Link
-                      key={service.href}
-                      href={service.href}
-                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group/item"
+              {/* Dropdown */}
+              {link.dropdown && (
+                <AnimatePresence>
+                  {activeDropdown === link.label && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-dever-elevated border border-white/10 rounded-xl p-2 shadow-2xl"
                     >
-                      <div className="w-10 h-10 rounded-md bg-secondary flex items-center justify-center shrink-0 group-hover/item:bg-primary/10 group-hover/item:text-primary transition-colors">
-                        <service.icon className="w-5 h-5 text-muted-foreground group-hover/item:text-primary" />
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-dever-elevated border-t border-l border-white/10 rotate-45" />
+                      <div className="relative z-10 flex flex-col">
+                        {link.dropdown.map((item) => (
+                          <Link 
+                            key={item.label} 
+                            href={item.href}
+                            className="p-3 rounded-lg hover:bg-white/5 transition-colors group/item"
+                          >
+                            <div className="text-sm font-semibold text-white group-hover/item:text-dever-teal transition-colors">{item.label}</div>
+                            <div className="text-xs text-dever-muted mt-1">{item.desc}</div>
+                          </Link>
+                        ))}
                       </div>
-                      <div>
-                        <div className="font-medium text-foreground text-sm mb-1">{service.title}</div>
-                        <div className="text-xs text-muted-foreground leading-snug">{service.description}</div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </div>
-
-            <Link href="/work" className={`text-sm font-medium transition-colors ${location === "/work" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
-              Work
-            </Link>
-            <Link href="/about" className={`text-sm font-medium transition-colors ${location === "/about" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
-              About
-            </Link>
-            <Link href="/contact" className={`text-sm font-medium transition-colors ${location === "/contact" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
-              Contact
-            </Link>
-          </div>
-
-          <div className="hidden md:flex">
-            <Link href="/contact" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-[40px] font-medium text-sm hover:bg-primary/90 transition-colors shadow-[0_0_20px_-5px_rgba(0,220,185,0.4)] hover:shadow-[0_0_25px_-5px_rgba(0,220,185,0.6)]">
-              Start a Project
-            </Link>
-          </div>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden text-foreground p-2 -mr-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          ))}
         </nav>
+
+        {/* Actions */}
+        <div className="hidden lg:flex items-center gap-4">
+          <Link 
+            href="/get-a-quote" 
+            className="text-sm font-semibold text-white border border-white/20 hover:border-white/50 px-5 py-2.5 rounded-full transition-all hover:bg-white/5"
+          >
+            Get a Quote
+          </Link>
+          <Link 
+            href="/contact" 
+            className="text-sm font-semibold text-[#080E14] bg-[#00DCB9] hover:bg-[#00DCB9]/90 px-5 py-2.5 rounded-full transition-all glow-teal-sm"
+          >
+            Start a Project
+          </Link>
+        </div>
+
+        {/* Mobile Toggle */}
+        <button 
+          className="lg:hidden z-50 text-white p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X /> : <Menu />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
+          <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/5 p-6 md:hidden h-[calc(100vh-80px)] overflow-y-auto"
+            className="fixed inset-0 z-40 bg-[#080E14] pt-24 px-6 pb-6 flex flex-col"
           >
-            <div className="flex flex-col gap-6">
-              <div className="border-b border-border pb-4">
-                <button 
-                  onClick={() => setServicesOpen(!servicesOpen)}
-                  className="flex items-center justify-between w-full text-lg font-display font-medium text-foreground"
-                >
-                  Services
-                  <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
-                </button>
-                <AnimatePresence>
-                  {servicesOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden flex flex-col gap-4 pt-4 pl-4"
-                    >
-                      {services.map((service) => (
-                        <Link key={service.href} href={service.href} className="text-muted-foreground hover:text-primary transition-colors">
-                          {service.title}
+            <div className="flex-1 overflow-y-auto flex flex-col gap-6">
+              {NAV_LINKS.map((link) => (
+                <div key={link.label} className="flex flex-col gap-2">
+                  <Link 
+                    href={link.href}
+                    className={`text-2xl font-display font-bold ${
+                      location === link.href ? 'text-white' : 'text-dever-muted'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                  {link.dropdown && (
+                    <div className="pl-4 flex flex-col gap-3 mt-2 border-l border-white/10">
+                      {link.dropdown.map(item => (
+                        <Link 
+                          key={item.label}
+                          href={item.href}
+                          className="text-sm text-dever-muted hover:text-white"
+                        >
+                          {item.label}
                         </Link>
                       ))}
-                      <Link href="/services" className="text-primary font-medium mt-2">View all services &rarr;</Link>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
-              </div>
-
-              <Link href="/work" className="text-lg font-display font-medium text-foreground border-b border-border pb-4">
-                Work
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 flex flex-col gap-4">
+              <Link 
+                href="/get-a-quote" 
+                className="text-center font-semibold text-white border border-white/20 px-5 py-4 rounded-xl"
+              >
+                Get a Quote
               </Link>
-              <Link href="/about" className="text-lg font-display font-medium text-foreground border-b border-border pb-4">
-                About
-              </Link>
-              <Link href="/contact" className="text-lg font-display font-medium text-foreground border-b border-border pb-4">
-                Contact
-              </Link>
-
-              <Link href="/contact" className="bg-primary text-primary-foreground px-6 py-4 rounded-[40px] font-medium text-center mt-4">
+              <Link 
+                href="/contact" 
+                className="text-center font-semibold text-[#080E14] bg-[#00DCB9] px-5 py-4 rounded-xl"
+              >
                 Start a Project
               </Link>
             </div>

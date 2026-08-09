@@ -1,120 +1,93 @@
-import { motion } from "framer-motion";
-import { Link } from "wouter";
-import { LayoutTemplate, Monitor, Smartphone, PenTool, ArrowRight, CheckCircle2 } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useGetServices } from '@workspace/api-client-react';
+import { Check } from 'lucide-react';
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 40 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+};
 
 export function Services() {
-  const services = [
-    {
-      id: "web-design",
-      title: "Web Design",
-      icon: LayoutTemplate,
-      desc: "We design stunning, high-converting digital experiences tailored to your brand.",
-      features: ["UI/UX Design", "Wireframing & Prototyping", "Design Systems", "Interactive Prototypes"],
-      link: "/services/web-design"
-    },
-    {
-      id: "web-development",
-      title: "Web Development",
-      icon: Monitor,
-      desc: "Robust, scalable web applications built with modern frameworks and best practices.",
-      features: ["Frontend Development", "Backend Systems", "API Integration", "Performance Optimization"],
-      link: "/services/web-development"
-    },
-    {
-      id: "mobile-apps",
-      title: "Mobile Apps",
-      icon: Smartphone,
-      desc: "Native-feeling mobile solutions for iOS and Android that users love to engage with.",
-      features: ["React Native / Flutter", "iOS & Android", "App Store Deployment", "Mobile UX Focus"],
-      link: "/services/mobile-apps"
-    },
-    {
-      id: "branding",
-      title: "Branding",
-      icon: PenTool,
-      desc: "Memorable brand identities and systems that establish trust and authority.",
-      features: ["Logo Design", "Brand Guidelines", "Visual Identity", "Marketing Assets"],
-      link: "/services/branding"
-    }
-  ];
+  const { data: services } = useGetServices();
 
   return (
-    <div className="w-full">
-      {/* Hero */}
-      <section className="pt-32 pb-20 relative overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 bg-grid-white opacity-20 pointer-events-none" />
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
-          <motion.div
+    <div className="w-full pb-32">
+      {/* Header */}
+      <section className="pt-24 pb-20 relative z-10">
+        <div className="container mx-auto px-6 md:px-12">
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="font-mono text-primary mb-4 text-sm tracking-widest uppercase">Capabilities</div>
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground mb-6 tracking-tight">Our Services</h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              We offer end-to-end digital product services. From initial strategy and branding through design, development, and launch.
+            <div className="font-mono text-xs text-dever-teal uppercase tracking-widest mb-6">SIG.02 / SERVICES</div>
+            <h1 className="text-5xl md:text-7xl font-display font-bold leading-[1.1] mb-8">
+              <span className="block text-white">Every Platform.</span>
+              <span className="block text-gradient-teal">Built to Perform.</span>
+            </h1>
+            <p className="text-lg text-dever-muted leading-relaxed">
+              Whatever you need built, we do it right — fast delivery, beautiful design, AI search visibility, and real support after launch.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Services List */}
-      <section className="py-24">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col gap-16">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-                className="bg-card border border-border p-8 md:p-12 rounded-3xl flex flex-col md:flex-row gap-12 group card-hover-teal"
-              >
-                <div className="md:w-1/3">
-                  <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-8 group-hover:bg-primary/10 transition-colors">
-                    <service.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h2 className="text-3xl font-display font-bold text-foreground mb-4">{service.title}</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-8">{service.desc}</p>
-                  <Link 
-                    href={service.link}
-                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
-                  >
-                    View details <ArrowRight className="w-4 h-4" />
-                  </Link>
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="flex flex-col gap-32 relative z-10">
+          {services?.map((service, idx) => (
+            <motion.section 
+              key={service.id}
+              id={service.slug}
+              {...fadeInUp}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-16 border-t border-white/5"
+            >
+              {/* Info Side */}
+              <div>
+                <div className="font-mono text-xs text-dever-muted uppercase tracking-widest mb-6">SIG.02{String.fromCharCode(97 + idx)} / {service.category}</div>
+                <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+                  {service.name.split(' ')[0]} <span className="text-dever-teal">{service.name.split(' ').slice(1).join(' ')}</span>
+                </h2>
+                <p className="text-dever-muted leading-relaxed mb-10 text-lg">
+                  {service.description}
+                </p>
+                
+                <ul className="space-y-4">
+                  {service.features.map((feature, fIdx) => (
+                    <li key={fIdx} className="flex items-start gap-3 text-sm text-white">
+                      <Check className="text-dever-teal shrink-0 mt-0.5" size={16} />
+                      <span className="font-medium">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Pricing Side */}
+              <div className="bg-[#0A1220] border border-[#1A2639] rounded-2xl overflow-hidden h-fit">
+                <div className="bg-[#0D1726] border-b border-[#1A2639] px-8 py-5">
+                  <span className="font-mono text-xs text-dever-teal uppercase tracking-widest">PACKAGES</span>
                 </div>
                 
-                <div className="md:w-2/3 md:border-l md:border-white/5 md:pl-12 flex flex-col justify-center">
-                  <h3 className="font-mono text-sm text-muted-foreground uppercase tracking-widest mb-6">What's included</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
-                    {service.features.map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                        <span className="text-foreground">{feature}</span>
+                <div className="divide-y divide-[#1A2639]">
+                  {service.packages.map((pkg, pIdx) => (
+                    <div key={pIdx} className="flex items-center justify-between p-8 hover:bg-white/5 transition-colors">
+                      <span className="font-mono text-sm text-dever-muted uppercase tracking-wider">{pkg.name}</span>
+                      <div className="text-right">
+                        <div className="font-display font-bold text-white">{pkg.price}</div>
+                        {pkg.delivery && <div className="text-xs text-dever-muted mt-1">{pkg.delivery}</div>}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.section>
+          ))}
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 border-t border-white/5 bg-secondary/30">
-        <div className="container mx-auto px-6 max-w-3xl text-center">
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">Not sure what you need?</h2>
-          <p className="text-lg text-muted-foreground mb-10">
-            Book a discovery call. We'll listen to your goals and suggest the right approach, no pressure.
-          </p>
-          <Link href="/contact" className="inline-flex items-center justify-center bg-foreground text-background px-8 py-4 rounded-[40px] font-medium text-lg hover:bg-primary hover:text-primary-foreground transition-colors">
-            Get in touch
-          </Link>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -49,10 +49,15 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-full: 9999px;
+  
+  --color-dever-teal: #00DCB9;
+  --color-dever-orange: #FF6B35;
+  --color-dever-surface: #0A1220;
+  --color-dever-elevated: #0D1726;
+  --color-dever-muted: #6B7FA8;
 }
 
 :root, .dark {
-  /* Using the dark theme by default as it's a presentation-first dark mode site */
   --background: 210 43% 5%;       /* #080E14 */
   --foreground: 224 100% 97%;     /* #F0F4FF */
   
@@ -109,24 +114,42 @@
   }
 }
 
-.bg-grid-white {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(255,255,255,0.02)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
-}
-
-.bg-dot-white {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' fill='none'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E");
-}
-
-/* Gradient text */
+/* Utilities for Deverdex aesthetics */
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/60;
 }
 
-/* Subtle glow effect */
+.text-gradient-teal {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#00DCB9] to-[#00A88D];
+}
+
+.text-gradient-orange {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FF6B35] to-[#D95526];
+}
+
 .glow-teal {
   box-shadow: 0 0 40px -10px rgba(0, 220, 185, 0.15);
 }
 
+.glow-teal-sm {
+  box-shadow: 0 0 20px -5px rgba(0, 220, 185, 0.1);
+}
+
 .card-hover-teal {
-  @apply transition-all duration-300 border-border hover:border-primary/50 hover:shadow-[0_0_20px_-5px_rgba(0,220,185,0.1)];
+  @apply transition-all duration-300 border-border hover:border-primary/50 hover:shadow-[0_0_20px_-5px_rgba(0,220,185,0.15)] hover:-translate-y-1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
 }

@@ -1,63 +1,88 @@
-import { Link } from "wouter";
+import React from 'react';
+import { Link } from 'wouter';
+import { motion } from 'framer-motion';
+import { ArrowRight, Github, Twitter, Linkedin } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-white/5 pt-20 pb-10 relative overflow-hidden">
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+    <footer className="relative bg-[#0A1220] border-t border-white/5 pt-20 pb-10 overflow-hidden">
+      {/* Decorative bg element */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
-          <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center font-display font-bold text-background text-lg">
-                D
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+          
+          {/* Brand Col */}
+          <div className="lg:col-span-4 flex flex-col items-start">
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-[#00DCB9] rounded flex items-center justify-center">
+                <span className="text-[#080E14] font-display font-bold text-xl leading-none">D</span>
               </div>
-              <span className="font-display font-bold text-xl tracking-tight text-foreground">
-                Deverdex
-              </span>
+              <span className="font-display font-bold text-xl text-white tracking-tight">Deverdex</span>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-              We build premium digital products that transform businesses and elevate brands.
+            <p className="text-dever-muted text-sm leading-relaxed mb-8 max-w-xs">
+              We build digital products that get found. From custom web apps to e-commerce stores — we build for businesses worldwide.
             </p>
+            <div className="flex items-center gap-4">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-dever-muted hover:text-white hover:border-white/30 transition-all">
+                <Github size={18} />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-dever-muted hover:text-white hover:border-white/30 transition-all">
+                <Twitter size={18} />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-dever-muted hover:text-white hover:border-white/30 transition-all">
+                <Linkedin size={18} />
+              </a>
+            </div>
           </div>
-          
-          <div>
-            <h4 className="font-display font-medium text-foreground mb-4">Services</h4>
-            <ul className="space-y-3">
-              <li><Link href="/services/web-design" className="text-sm text-muted-foreground hover:text-primary transition-colors">Web Design</Link></li>
-              <li><Link href="/services/web-development" className="text-sm text-muted-foreground hover:text-primary transition-colors">Web Development</Link></li>
-              <li><Link href="/services/mobile-apps" className="text-sm text-muted-foreground hover:text-primary transition-colors">Mobile Apps</Link></li>
-              <li><Link href="/services/branding" className="text-sm text-muted-foreground hover:text-primary transition-colors">Branding</Link></li>
+
+          {/* Links Col 1 */}
+          <div className="lg:col-span-2 lg:col-start-6">
+            <h4 className="text-white font-display font-semibold mb-6">Company</h4>
+            <ul className="flex flex-col gap-4">
+              <li><Link href="/about" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">About Us</Link></li>
+              <li><Link href="/portfolio" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">Portfolio</Link></li>
+              <li><Link href="/blog" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">Blog</Link></li>
+              <li><Link href="/contact" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">Contact</Link></li>
             </ul>
           </div>
-          
-          <div>
-            <h4 className="font-display font-medium text-foreground mb-4">Company</h4>
-            <ul className="space-y-3">
-              <li><Link href="/work" className="text-sm text-muted-foreground hover:text-primary transition-colors">Work</Link></li>
-              <li><Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</Link></li>
-              <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
+
+          {/* Links Col 2 */}
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-display font-semibold mb-6">Services</h4>
+            <ul className="flex flex-col gap-4">
+              <li><Link href="/services#web-design" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">Web Design</Link></li>
+              <li><Link href="/services#web-development" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">Web Development</Link></li>
+              <li><Link href="/services#mobile" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">Mobile Apps</Link></li>
+              <li><Link href="/services#seo" className="text-sm text-dever-muted hover:text-dever-teal transition-colors">AEO & SEO</Link></li>
             </ul>
           </div>
-          
-          <div>
-            <h4 className="font-display font-medium text-foreground mb-4">Connect</h4>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Twitter</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">LinkedIn</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">GitHub</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Dribbble</a></li>
-            </ul>
+
+          {/* Newsletter Col */}
+          <div className="lg:col-span-3">
+            <h4 className="text-white font-display font-semibold mb-6">Stay Updated</h4>
+            <p className="text-sm text-dever-muted mb-4">Get the latest insights on tech and design.</p>
+            <div className="relative">
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="w-full bg-[#080E14] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-dever-teal transition-colors"
+              />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-dever-teal rounded flex items-center justify-center text-[#080E14] hover:bg-dever-teal/90 transition-colors">
+                <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
+          
         </div>
-        
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
-          <p className="text-sm text-muted-foreground mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Deverdex. All rights reserved.
+
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
+          <p className="text-xs text-dever-muted mb-4 md:mb-0">
+            © {new Date().getFullYear()} Deverdex. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</a>
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-xs text-dever-muted hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="text-xs text-dever-muted hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
