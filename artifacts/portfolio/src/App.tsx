@@ -13,6 +13,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Home } from '@/pages/Home';
 import { About } from '@/pages/About';
 import { Services } from '@/pages/Services';
+import { ServiceShopify } from '@/pages/ServiceShopify';
+import { ServiceWordPress } from '@/pages/ServiceWordPress';
 import { Portfolio } from '@/pages/Portfolio';
 import { Experiments } from '@/pages/Experiments';
 import { Blog } from '@/pages/Blog';
@@ -56,6 +58,8 @@ function AppRouter() {
           <Switch location={location} key={location}>
             <Route path="/" component={Home} />
             <Route path="/about" component={About} />
+            <Route path="/services/shopify" component={ServiceShopify} />
+            <Route path="/services/wordpress" component={ServiceWordPress} />
             <Route path="/services" component={Services} />
             <Route path="/portfolio" component={Portfolio} />
             <Route path="/experiments" component={Experiments} />
