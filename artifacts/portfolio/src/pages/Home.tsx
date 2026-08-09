@@ -261,9 +261,113 @@ export function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
+          SECTION 3.5 — AI-FIRST WEB  (#0A1220 with glow)
+      ══════════════════════════════════════════════════════ */}
+      <section className="py-28 bg-[#0A1220] relative z-10 overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#00DCB9]/8 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="container mx-auto px-6 md:px-10 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left copy */}
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+              <div className="font-mono text-[11px] text-[#00DCB9] uppercase tracking-[0.18em] mb-4">SIG.03 / AI-FIRST WEB</div>
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                <span className="block text-white">Your site,</span>
+                <span className="block text-[#00DCB9]">in every AI answer.</span>
+              </h2>
+              <p className="text-[#7A8BAA] leading-relaxed mb-8 max-w-lg">
+                When someone searches in ChatGPT, Perplexity or Google AI Mode, most websites are invisible. We build every Deverdex site with AEO schema baked in from day one — so your business gets cited, recommended, and surfaced wherever your customers are asking.
+              </p>
+
+              <div className="flex flex-col gap-4 mb-10">
+                {[
+                  { label: 'AEO Schema Markup', desc: 'Structured data that AI engines can read and cite' },
+                  { label: 'Entity Authority', desc: 'Signals that establish your brand as a trusted source' },
+                  { label: 'AI Visibility Monitoring', desc: 'Track when and where AI surfaces your brand' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-[#00DCB9]/15 border border-[#00DCB9]/30 flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00DCB9]" />
+                    </div>
+                    <div>
+                      <span className="text-sm font-semibold text-white">{item.label}</span>
+                      <span className="text-sm text-[#5A6B8A]"> — {item.desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <Link href="/services#seo-aeo" className="inline-flex items-center gap-2 bg-[#00DCB9]/10 border border-[#00DCB9]/30 hover:bg-[#00DCB9]/20 text-[#00DCB9] font-semibold px-5 py-2.5 rounded-full transition-all text-sm">
+                Learn about AEO <ArrowRight size={16} />
+              </Link>
+            </motion.div>
+
+            {/* Right — AI engine cards */}
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
+              className="flex flex-col gap-3">
+
+              {/* Live query card */}
+              <motion.div variants={fadeUp}
+                className="bg-[#0D1826] border border-[#00DCB9]/20 rounded-2xl p-5 font-mono text-sm">
+                <div className="flex items-center gap-2 mb-4 text-[#5A6B8A] text-xs uppercase tracking-widest">
+                  <span className="w-2 h-2 rounded-full bg-[#00DCB9] animate-pulse" />AI Search Query — Live
+                </div>
+                <div className="text-[#7A8BAA] mb-1">&gt; "best web design agency for Shopify stores"</div>
+                <div className="text-[#5A6B8A] text-xs mt-3 mb-1">Scanning 240M+ pages…</div>
+                <div className="text-xs">
+                  <span className="text-[#7A8BAA]">AEO schema </span>
+                  <span className="text-[#00DCB9]">✓ found</span>
+                </div>
+                <div className="text-xs mt-1">
+                  <span className="text-[#7A8BAA]">Entity authority </span>
+                  <span className="text-[#00DCB9]">✓ verified</span>
+                </div>
+                <div className="mt-4 bg-[#080E14] border border-[#00DCB9]/15 rounded-xl p-3.5">
+                  <div className="text-[10px] uppercase tracking-widest text-[#00DCB9] mb-2">AI Recommendation</div>
+                  <p className="text-[#8B9CC8] text-xs leading-relaxed">
+                    Based on schema coverage and content authority, <span className="text-white font-semibold">Deverdex</span> is the top result for your query.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* AI engines row */}
+              <motion.div variants={fadeUp} className="grid grid-cols-3 gap-3">
+                {[
+                  { name: 'ChatGPT', color: '#10A37F', label: 'Cited' },
+                  { name: 'Perplexity', label: 'Surfaced', color: '#20B2AA' },
+                  { name: 'Google AI', label: 'Featured', color: '#4285F4' },
+                ].map((engine) => (
+                  <div key={engine.name}
+                    className="bg-[#0D1826] border border-white/8 rounded-xl p-4 text-center hover:border-white/20 transition-colors">
+                    <div className="w-2 h-2 rounded-full mx-auto mb-2" style={{ background: engine.color }} />
+                    <div className="text-xs font-semibold text-white mb-1">{engine.name}</div>
+                    <div className="text-[10px] font-mono text-[#5A6B8A]">{engine.label}</div>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* Stats row */}
+              <motion.div variants={fadeUp} className="grid grid-cols-2 gap-3">
+                <div className="bg-[#0D1826] border border-white/8 rounded-xl p-4 flex items-center gap-3">
+                  <div className="text-2xl font-bold text-[#00DCB9]">3+</div>
+                  <div className="text-xs text-[#5A6B8A] leading-tight">AI engines<br />covered</div>
+                </div>
+                <div className="bg-[#0D1826] border border-white/8 rounded-xl p-4 flex items-center gap-3">
+                  <div className="text-2xl font-bold text-[#FF6B35]">100%</div>
+                  <div className="text-xs text-[#5A6B8A] leading-tight">Sites built<br />AEO-first</div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
           SECTION 4 — HOW WE WORK / PROCESS  (#0A1220)
       ══════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-[#0A1220] relative z-10">
+      <section className="py-28 bg-[#080E14] relative z-10">
         <div className="container mx-auto px-6 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Left header — sticky feel */}
