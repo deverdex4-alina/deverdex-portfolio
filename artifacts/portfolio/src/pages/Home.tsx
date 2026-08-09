@@ -9,6 +9,19 @@ import {
   Star, Quote, ChevronRight, CheckCircle2, Clock, BarChart3, Globe2, Award,
 } from 'lucide-react';
 
+// Portfolio images
+import portfolio1 from '@assets/generated_images/portfolio-1.jpg';
+import portfolio2 from '@assets/generated_images/portfolio-2.jpg';
+import portfolio3 from '@assets/generated_images/portfolio-3.jpg';
+
+// Blog images
+import blog1 from '@assets/generated_images/blog-1.jpg';
+import blog2 from '@assets/generated_images/blog-2.jpg';
+import blog3 from '@assets/generated_images/blog-3.jpg';
+
+const PORTFOLIO_IMAGES = [portfolio1, portfolio2, portfolio3];
+const BLOG_IMAGES = [blog1, blog2, blog3];
+
 /* ─── animation variants ─── */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -428,31 +441,23 @@ export function Home() {
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(projects ?? []).slice(0, 3).map((project, idx) => {
-              const gradients = [
-                'from-[#00DCB9]/20 to-[#0D1826]',
-                'from-[#FF6B35]/20 to-[#0D1826]',
-                'from-[#4FC3F7]/20 to-[#0D1826]',
-              ];
-              const labels = ['React + Node.js', 'Web Design', 'React Native'];
               return (
                 <motion.div key={project.id} variants={fadeUp} className="group cursor-pointer">
-                  <div className={`rounded-2xl overflow-hidden mb-4 aspect-[4/3] relative bg-gradient-to-br ${gradients[idx % 3]}`}>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center px-8">
-                        <div className="font-mono text-[11px] uppercase tracking-widest text-[#00DCB9]/60 mb-3">{project.platform ?? labels[idx % 3]}</div>
-                        <div className="text-xl font-bold text-white">{project.title}</div>
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 bg-[#080E14]/0 group-hover:bg-[#080E14]/20 transition-all duration-500" />
+                  <div className="rounded-2xl overflow-hidden mb-4 aspect-[4/3] relative bg-[#0D1826]">
+                    <img
+                      src={PORTFOLIO_IMAGES[idx % PORTFOLIO_IMAGES.length]}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-[#080E14]/0 group-hover:bg-[#080E14]/30 transition-all duration-500" />
                     <div className="absolute top-4 left-4">
                       <span className="bg-[#080E14]/80 border border-white/10 text-[11px] font-mono text-white px-2.5 py-1 rounded-full uppercase tracking-wider">
                         {project.category}
                       </span>
                     </div>
-                    {/* Tags */}
                     <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
                       {(project.tags ?? []).slice(0, 3).map((tag) => (
-                        <span key={tag} className="bg-white/10 text-[10px] font-mono text-white/70 px-2 py-0.5 rounded-full">{tag}</span>
+                        <span key={tag} className="bg-white/10 backdrop-blur-sm text-[10px] font-mono text-white/80 px-2 py-0.5 rounded-full">{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -529,22 +534,20 @@ export function Home() {
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(blogPosts ?? []).slice(0, 3).map((post, idx) => {
-              const colors = ['#00DCB9', '#FF6B35', '#4FC3F7'];
               return (
                 <motion.div key={post.id} variants={fadeUp} className="group cursor-pointer">
                   <Link href={`/blog/${post.slug}`}>
-                    {/* Image placeholder */}
-                    <div className="rounded-2xl overflow-hidden mb-4 aspect-[16/9] relative"
-                      style={{ background: `linear-gradient(135deg, ${colors[idx % 3]}18, #0D1826)` }}>
-                      <div className="absolute inset-0 flex items-end p-4">
-                        <div className="flex flex-wrap gap-1.5">
-                          {(post.tags ?? []).slice(0, 2).map((tag) => (
-                            <span key={tag} className="bg-[#080E14]/80 text-[10px] font-mono text-white/70 px-2 py-0.5 rounded-full border border-white/10">{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                        <div className="w-16 h-16 rounded-full" style={{ background: colors[idx % 3] }} />
+                    <div className="rounded-2xl overflow-hidden mb-4 aspect-[16/9] relative bg-[#0D1826]">
+                      <img
+                        src={BLOG_IMAGES[idx % BLOG_IMAGES.length]}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-[#080E14]/0 group-hover:bg-[#080E14]/20 transition-all duration-500" />
+                      <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
+                        {(post.tags ?? []).slice(0, 2).map((tag) => (
+                          <span key={tag} className="bg-[#080E14]/80 backdrop-blur-sm text-[10px] font-mono text-white/80 px-2 py-0.5 rounded-full border border-white/10">{tag}</span>
+                        ))}
                       </div>
                     </div>
                     <div className="flex items-center gap-3 mb-3 text-[11px] font-mono text-[#5A6B8A] uppercase tracking-wider">
