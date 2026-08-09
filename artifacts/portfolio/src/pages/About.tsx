@@ -72,7 +72,7 @@ const team = [
     role: 'Full Stack Developer',
     image: team3,
     bio: 'Building pixel-perfect front-ends and robust back-end systems. Specialises in React, Node.js and headless e-commerce.',
-    socials: { github: '#', linkedin: '#' },
+    socials: { github: '#', linkedin: 'https://pk.linkedin.com/in/tahira-sadia-a92058253' },
   },
 ];
 
