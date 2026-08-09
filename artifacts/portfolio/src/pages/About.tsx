@@ -72,11 +72,12 @@ const cardVariants = {
 };
 
 const photoVariants = {
-  hidden: { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.08 },
+  hidden: { opacity: 0, scale: 1.08, y: 20 },
   show: (i: number) => ({
-    clipPath: 'inset(0% 0% 0% 0%)',
+    opacity: 1,
     scale: 1,
-    transition: { duration: 0.9, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] as any },
+    y: 0,
+    transition: { duration: 0.85, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] as any },
   }),
 };
 
