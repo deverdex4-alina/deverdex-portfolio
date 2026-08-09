@@ -6,12 +6,12 @@ import { ChevronDown, Menu, X, Code2, Palette, Smartphone, Search, ShoppingBag, 
 const SERVICES_ITEMS = [
   { label: 'Shopify Development', href: '/services/shopify', desc: 'Shopify 2.0 stores that rank & convert', icon: ShoppingBag },
   { label: 'WordPress Development', href: '/services/wordpress', desc: 'Elementor, WooCommerce & custom themes', icon: Wrench },
-  { label: 'Web Design', href: '/services#web-design', desc: 'Custom, high-converting designs', icon: Palette },
-  { label: 'Web Development', href: '/services#web-development', desc: 'Fast, secure & scalable apps', icon: Code2 },
-  { label: 'Mobile Apps', href: '/services#mobile-apps', desc: 'Native & cross-platform solutions', icon: Smartphone },
-  { label: 'E-Commerce', href: '/services#ecommerce', desc: 'Shopify, WooCommerce & custom', icon: ShoppingBag },
-  { label: 'SEO & AEO', href: '/services#seo-aeo', desc: 'AI-first visibility optimization', icon: Search },
-  { label: 'AI Solutions', href: '/services#ai', desc: 'AI integrations & automation', icon: Bot },
+  { label: 'Web Design', href: '/services/web-design', desc: 'Custom, high-converting designs', icon: Palette },
+  { label: 'Web Development', href: '/services/web-development', desc: 'Fast, secure & scalable apps', icon: Code2 },
+  { label: 'Mobile Apps', href: '/services/mobile-apps', desc: 'Native & cross-platform solutions', icon: Smartphone },
+  { label: 'E-Commerce', href: '/services/ecommerce', desc: 'Shopify, WooCommerce & custom', icon: ShoppingBag },
+  { label: 'SEO & AEO', href: '/services/seo-aeo', desc: 'AI-first visibility optimization', icon: Search },
+  { label: 'AI Solutions', href: '/services/ai', desc: 'AI integrations & automation', icon: Bot },
 ];
 
 const PRODUCTS_ITEMS = [

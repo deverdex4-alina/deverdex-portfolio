@@ -15,6 +15,12 @@ import { About } from '@/pages/About';
 import { Services } from '@/pages/Services';
 import { ServiceShopify } from '@/pages/ServiceShopify';
 import { ServiceWordPress } from '@/pages/ServiceWordPress';
+import { ServiceWebDesign } from '@/pages/ServiceWebDesign';
+import { ServiceWebDevelopment } from '@/pages/ServiceWebDevelopment';
+import { ServiceMobileApps } from '@/pages/ServiceMobileApps';
+import { ServiceEcommerce } from '@/pages/ServiceEcommerce';
+import { ServiceSeoAeo } from '@/pages/ServiceSeoAeo';
+import { ServiceAI } from '@/pages/ServiceAI';
 import { Portfolio } from '@/pages/Portfolio';
 import { Experiments } from '@/pages/Experiments';
 import { Blog } from '@/pages/Blog';
@@ -60,6 +66,12 @@ function AppRouter() {
             <Route path="/about" component={About} />
             <Route path="/services/shopify" component={ServiceShopify} />
             <Route path="/services/wordpress" component={ServiceWordPress} />
+            <Route path="/services/web-design" component={ServiceWebDesign} />
+            <Route path="/services/web-development" component={ServiceWebDevelopment} />
+            <Route path="/services/mobile-apps" component={ServiceMobileApps} />
+            <Route path="/services/ecommerce" component={ServiceEcommerce} />
+            <Route path="/services/seo-aeo" component={ServiceSeoAeo} />
+            <Route path="/services/ai" component={ServiceAI} />
             <Route path="/services" component={Services} />
             <Route path="/portfolio" component={Portfolio} />
             <Route path="/experiments" component={Experiments} />
