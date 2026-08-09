@@ -3,9 +3,9 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { useGetStats } from '@workspace/api-client-react';
 import { ArrowRight, Globe, Star, Award, Users, Github, Linkedin, Twitter } from 'lucide-react';
-import team1 from '@assets/generated_images/team-sheeraz.jpg';
-import team2 from '@assets/generated_images/team-alina.jpg';
-import team3 from '@assets/generated_images/team-tahira.jpg';
+import team1 from '@assets/generated_images/team-sheeraz.png';
+import team2 from '@assets/generated_images/team-alina.png';
+import team3 from '@assets/generated_images/team-tahira.png';
 
 /* ── helpers ─────────────────────────────────────────────────────── */
 function Counter({ target, suffix = '', decimals = 0 }: { target: number; suffix?: string; decimals?: number }) {
@@ -61,15 +61,15 @@ const team = [
     socials: { twitter: '#', linkedin: '#' },
   },
   {
-    name: 'Alina',
+    name: 'Alina Altaf',
     role: 'CTO & Co-Founder',
     image: team2,
     bio: 'Architecting the technical systems and AI-powered platforms. Full-stack engineer with a background in distributed systems.',
     socials: { github: '#', linkedin: '#' },
   },
   {
-    name: 'Tahira',
-    role: 'Lead Full Stack Developer',
+    name: 'Tahira Sadia',
+    role: 'Full Stack Developer',
     image: team3,
     bio: 'Building pixel-perfect front-ends and robust back-end systems. Specialises in React, Node.js and headless e-commerce.',
     socials: { github: '#', linkedin: '#' },
