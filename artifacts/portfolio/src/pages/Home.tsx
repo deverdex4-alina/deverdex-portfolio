@@ -7,6 +7,7 @@ import { useGetStats, useGetServices, useGetProjects, useGetBlogPosts } from '@w
 import {
   ArrowRight, Code2, Palette, Smartphone, Search, ShoppingBag, Cpu, Bot, Wrench,
   Star, Quote, ChevronRight, CheckCircle2, Clock, BarChart3, Globe2, Award,
+  Lightbulb, Map, Rocket, HeartHandshake,
 } from 'lucide-react';
 
 // Portfolio images
@@ -65,12 +66,12 @@ const SERVICE_ICONS: Record<string, React.ElementType> = {
 
 /* ─── process steps ─── */
 const PROCESS_STEPS = [
-  { num: '01', title: 'Discovery & Brief', desc: 'We start with a deep-dive into your goals, audience, competitors and technical requirements. No assumptions — just clarity.' },
-  { num: '02', title: 'Strategy & Planning', desc: 'A detailed project plan, sitemap, content structure and tech stack selection tailored to your budget and timeline.' },
-  { num: '03', title: 'Design & Prototype', desc: 'High-fidelity Figma designs that feel real before a single line of code is written. You approve every screen.' },
-  { num: '04', title: 'Build & Develop', desc: 'Clean, performant code built to the specification. Regular staging updates so you always know where we are.' },
-  { num: '05', title: 'Test & Launch', desc: 'End-to-end QA across devices and browsers, performance audits, then a controlled go-live.' },
-  { num: '06', title: 'Support & Grow', desc: 'Post-launch monitoring, content updates, SEO tracking and ongoing development as your business grows.' },
+  { num: '01', icon: Lightbulb,      color: '#00DCB9', title: 'Discovery & Brief',    desc: 'Deep-dive into your goals, audience, competitors and requirements. No assumptions — just clarity.' },
+  { num: '02', icon: Map,            color: '#4FC3F7', title: 'Strategy & Planning',  desc: 'Detailed project plan, sitemap, content structure and tech stack tailored to your budget and timeline.' },
+  { num: '03', icon: Palette,        color: '#A78BFA', title: 'Design & Prototype',   desc: 'High-fidelity Figma designs that feel real before a single line of code is written. You approve every screen.' },
+  { num: '04', icon: Code2,          color: '#FF6B35', title: 'Build & Develop',      desc: 'Clean, performant code built to spec. Regular staging updates so you always know where we are.' },
+  { num: '05', icon: Rocket,         color: '#34D399', title: 'Test & Launch',        desc: 'End-to-end QA across devices and browsers, performance audits, then a controlled go-live.' },
+  { num: '06', icon: HeartHandshake, color: '#F472B6', title: 'Support & Grow',       desc: 'Post-launch monitoring, content updates, SEO tracking and ongoing development as your business grows.' },
 ];
 
 /* ─── testimonials ─── */
@@ -378,43 +379,107 @@ export function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 4 — HOW WE WORK / PROCESS  (#0A1220)
+          SECTION 4 — HOW WE WORK / PROCESS
       ══════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-[#080E14] relative z-10">
-        <div className="container mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            {/* Left header — sticky feel */}
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-              <div className="font-mono text-[11px] text-[#00DCB9] uppercase tracking-[0.18em] mb-4">SIG.04 / PROCESS</div>
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-                <span className="block text-white">How We</span>
-                <span className="block text-[#FF6B35]">Work.</span>
-              </h2>
-              <p className="text-[#7A8BAA] leading-relaxed max-w-md mb-8">
-                A proven 6-step process refined across 50+ projects. No surprises, no guesswork — just a clear path from brief to launch.
-              </p>
-              <Link href="/contact" className="inline-flex items-center gap-2 bg-[#00DCB9]/10 border border-[#00DCB9]/30 hover:bg-[#00DCB9]/20 text-[#00DCB9] font-semibold px-5 py-2.5 rounded-full transition-all text-sm">
-                Start a Project <ArrowRight size={16} />
-              </Link>
-            </motion.div>
+      <section className="py-28 bg-[#06090F] relative z-10 overflow-hidden">
+        {/* Background grid */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(0,220,185,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,220,185,0.03) 1px,transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+        {/* Radial glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(0,220,185,0.04) 0%, transparent 70%)' }} />
 
-            {/* Right — steps */}
-            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
-              className="flex flex-col gap-0">
-              {PROCESS_STEPS.map((step, idx) => (
-                <motion.div key={step.num} variants={fadeUp}
-                  className="flex gap-5 py-5 border-b border-white/6 last:border-0 group hover:bg-white/2 -mx-4 px-4 rounded-xl transition-colors"
+        <div className="container mx-auto px-6 md:px-10 relative">
+          {/* Section header — centered */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
+            className="text-center mb-20">
+            <div className="font-mono text-[11px] text-[#00DCB9] uppercase tracking-[0.22em] mb-5 inline-flex items-center gap-2">
+              <span className="w-6 h-px bg-[#00DCB9]/50" />
+              SIG.04 / PROCESS
+              <span className="w-6 h-px bg-[#00DCB9]/50" />
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+              <span className="text-white">How We </span>
+              <span className="text-[#FF6B35]">Work.</span>
+            </h2>
+            <p className="text-[#7A8BAA] leading-relaxed max-w-xl mx-auto text-lg">
+              A proven 6-step process refined across 50+ projects — clear, transparent, and built around your success.
+            </p>
+          </motion.div>
+
+          {/* Steps grid */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 rounded-3xl overflow-hidden border border-white/8"
+          >
+            {PROCESS_STEPS.map((step, idx) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.num}
+                  variants={fadeUp}
+                  className="group relative bg-[#06090F] p-8 hover:bg-[#0D1826] transition-all duration-500 cursor-default overflow-hidden"
                 >
-                  <div className="font-mono text-xs text-[#00DCB9] w-8 shrink-0 pt-0.5 opacity-60">{step.num}</div>
-                  <div>
-                    <div className="font-bold text-white mb-1 group-hover:text-[#00DCB9] transition-colors">{step.title}</div>
-                    <p className="text-sm text-[#5A6B8A] leading-relaxed">{step.desc}</p>
+                  {/* Large watermark number */}
+                  <div
+                    className="absolute -top-3 -right-1 font-bold text-[120px] leading-none select-none pointer-events-none transition-all duration-500 group-hover:opacity-100"
+                    style={{ color: step.color, opacity: 0.04, fontFamily: 'monospace' }}
+                  >
+                    {step.num}
                   </div>
-                  <ChevronRight className="ml-auto shrink-0 w-4 h-4 text-[#2A3A55] group-hover:text-[#00DCB9] transition-colors mt-1" />
+
+                  {/* Top accent line */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `linear-gradient(90deg, transparent, ${step.color}, transparent)` }}
+                  />
+
+                  {/* Step number badge */}
+                  <div className="font-mono text-[10px] uppercase tracking-widest mb-5 transition-colors duration-300"
+                    style={{ color: step.color }}>
+                    Step {step.num}
+                  </div>
+
+                  {/* Icon */}
+                  <div
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110"
+                    style={{ background: `${step.color}14`, border: `1px solid ${step.color}30` }}
+                  >
+                    <Icon className="w-5 h-5 transition-colors duration-300" style={{ color: step.color }} />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="font-bold text-white text-lg mb-3 leading-tight group-hover:text-white transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#5A6B8A] text-sm leading-relaxed group-hover:text-[#7A8BAA] transition-colors duration-300">
+                    {step.desc}
+                  </p>
+
+                  {/* Bottom connector dot */}
+                  <div className="absolute bottom-6 right-6 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
+                    style={{ background: step.color }} />
                 </motion.div>
-              ))}
-            </motion.div>
-          </div>
+              );
+            })}
+          </motion.div>
+
+          {/* Bottom CTA */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
+            className="text-center mt-14">
+            <Link href="/contact"
+              className="inline-flex items-center gap-2.5 bg-[#00DCB9] hover:bg-[#00DCB9]/90 text-[#06090F] font-bold px-7 py-3.5 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,220,185,0.3)] text-sm uppercase tracking-wider">
+              Start Your Project <ArrowRight size={16} />
+            </Link>
+            <p className="text-[#3A4B66] text-sm mt-4 font-mono">Free discovery call · No commitment</p>
+          </motion.div>
         </div>
       </section>
 
