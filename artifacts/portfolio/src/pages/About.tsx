@@ -58,14 +58,14 @@ const team = [
     role: 'CEO & Co-Founder',
     image: team1,
     bio: 'Leading strategy, client relationships and product direction. Built Deverdex from a solo Fiverr profile to a global web agency.',
-    socials: { twitter: '#', linkedin: '#' },
+    socials: { twitter: '#', linkedin: 'https://www.linkedin.com/in/sheeraz-afzal786' },
   },
   {
     name: 'Alina Altaf',
     role: 'CTO & Co-Founder',
     image: team2,
     bio: 'Architecting the technical systems and AI-powered platforms. Full-stack engineer with a background in distributed systems.',
-    socials: { github: '#', linkedin: '#' },
+    socials: { github: '#', linkedin: 'https://www.linkedin.com/in/alina-altaf786' },
   },
   {
     name: 'Tahira Sadia',
