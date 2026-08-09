@@ -11,99 +11,110 @@ interface Particle {
 }
 
 const COLORS = [
-  '#00DCB9', // Teal
-  '#FF6B35', // Orange
-  '#4FC3F7', // Light Blue
-  'rgba(255, 255, 255, 0.4)' // Whiteish
+  '#00DCB9',
+  '#FF6B35',
+  '#4FC3F7',
+  'rgba(255, 255, 255, 0.5)',
 ];
 
-export function ParticleField() {
+interface ParticleFieldProps {
+  /** If true, canvas is absolute (fills parent). If false (default), fixed (fills viewport). */
+  contained?: boolean;
+}
+
+export function ParticleField({ contained = false }: ParticleFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let particles: Particle[] = [];
     let animationFrameId: number;
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
+    const getSize = () => {
+      if (contained && containerRef.current) {
+        return {
+          w: containerRef.current.offsetWidth,
+          h: containerRef.current.offsetHeight,
+        };
+      }
+      return { w: window.innerWidth, h: window.innerHeight };
     };
 
     const initParticles = () => {
+      const { w, h } = getSize();
+      canvas.width = w;
+      canvas.height = h;
       particles = [];
-      const numParticles = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 15000));
-      
-      for (let i = 0; i < numParticles; i++) {
+      const count = Math.min(100, Math.floor((w * h) / 12000));
+      for (let i = 0; i < count; i++) {
         particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.2, // Very slow drift
-          vy: (Math.random() - 0.5) * 0.2,
-          radius: Math.random() * 2 + 1, // 1px to 3px radius (2-6px diameter)
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          radius: Math.random() * 2 + 1,
           color: COLORS[Math.floor(Math.random() * COLORS.length)],
-          alpha: Math.random() * 0.5 + 0.3
+          alpha: Math.random() * 0.5 + 0.25,
         });
       }
     };
 
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(p => {
-        // Move
+      const { w, h } = getSize();
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+        if (p.y < -10) p.y = h + 10;
+        if (p.y > h + 10) p.y = -10;
 
-        // Wrap around edges
-        if (p.x < -10) p.x = canvas.width + 10;
-        if (p.x > canvas.width + 10) p.x = -10;
-        if (p.y < -10) p.y = canvas.height + 10;
-        if (p.y > canvas.height + 10) p.y = -10;
-
-        // Draw
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        
-        // Handle rgba strings vs hex colors for alpha
         if (p.color.startsWith('rgba')) {
           ctx.fillStyle = p.color;
         } else {
-          // Convert hex to rgba to apply alpha
           const hex = p.color.replace('#', '');
           const r = parseInt(hex.substring(0, 2), 16);
           const g = parseInt(hex.substring(2, 4), 16);
           const b = parseInt(hex.substring(4, 6), 16);
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${p.alpha})`;
         }
-        
         ctx.fill();
       });
-
       animationFrameId = requestAnimationFrame(draw);
     };
 
-    window.addEventListener('resize', resize);
-    resize();
+    const onResize = () => initParticles();
+    window.addEventListener('resize', onResize);
+    initParticles();
     draw();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [contained]);
+
+  if (contained) {
+    return (
+      <div ref={containerRef} className="absolute inset-0 pointer-events-none z-0">
+        <canvas ref={canvasRef} className="w-full h-full" />
+      </div>
+    );
+  }
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.8 }}
+      style={{ opacity: 0.85 }}
     />
   );
 }

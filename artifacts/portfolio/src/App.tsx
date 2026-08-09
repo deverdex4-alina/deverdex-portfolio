@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 // Layout
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { ParticleField } from '@/components/ParticleField';
 
 // Pages
 import { Home } from '@/pages/Home';
@@ -51,7 +50,6 @@ function AppRouter() {
   
   return (
     <div className="flex flex-col min-h-screen selection:bg-dever-teal/30 selection:text-white relative bg-[#080E14] text-[#F0F4FF]">
-      <ParticleField />
       <Navbar />
       <AnimatePresence mode="wait">
         <PageWrapper>
