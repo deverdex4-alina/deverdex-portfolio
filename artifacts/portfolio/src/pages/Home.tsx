@@ -66,12 +66,12 @@ const SERVICE_ICONS: Record<string, React.ElementType> = {
 
 /* ─── process steps ─── */
 const PROCESS_STEPS = [
-  { num: '01', icon: Lightbulb,      color: '#00DCB9', title: 'Discovery & Brief',    desc: 'Deep-dive into your goals, audience, competitors and requirements. No assumptions — just clarity.' },
-  { num: '02', icon: Map,            color: '#4FC3F7', title: 'Strategy & Planning',  desc: 'Detailed project plan, sitemap, content structure and tech stack tailored to your budget and timeline.' },
-  { num: '03', icon: Palette,        color: '#A78BFA', title: 'Design & Prototype',   desc: 'High-fidelity Figma designs that feel real before a single line of code is written. You approve every screen.' },
-  { num: '04', icon: Code2,          color: '#FF6B35', title: 'Build & Develop',      desc: 'Clean, performant code built to spec. Regular staging updates so you always know where we are.' },
-  { num: '05', icon: Rocket,         color: '#34D399', title: 'Test & Launch',        desc: 'End-to-end QA across devices and browsers, performance audits, then a controlled go-live.' },
-  { num: '06', icon: HeartHandshake, color: '#F472B6', title: 'Support & Grow',       desc: 'Post-launch monitoring, content updates, SEO tracking and ongoing development as your business grows.' },
+  { num: '01', icon: Lightbulb, color: '#00DCB9', title: 'Discovery & Brief', desc: 'Deep-dive into your goals, audience, competitors and requirements. No assumptions — just clarity.' },
+  { num: '02', icon: Map, color: '#4FC3F7', title: 'Strategy & Planning', desc: 'Detailed project plan, sitemap, content structure and tech stack tailored to your budget and timeline.' },
+  { num: '03', icon: Palette, color: '#A78BFA', title: 'Design & Prototype', desc: 'High-fidelity Figma designs that feel real before a single line of code is written. You approve every screen.' },
+  { num: '04', icon: Code2, color: '#FF6B35', title: 'Build & Develop', desc: 'Clean, performant code built to spec. Regular staging updates so you always know where we are.' },
+  { num: '05', icon: Rocket, color: '#34D399', title: 'Test & Launch', desc: 'End-to-end QA across devices and browsers, performance audits, then a controlled go-live.' },
+  { num: '06', icon: HeartHandshake, color: '#F472B6', title: 'Support & Grow', desc: 'Post-launch monitoring, content updates, SEO tracking and ongoing development as your business grows.' },
 ];
 
 /* ─── testimonials ─── */
@@ -110,6 +110,22 @@ export function Home() {
   const { data: services } = useGetServices();
   const { data: projects } = useGetProjects({});
   const { data: blogPosts } = useGetBlogPosts();
+
+  const projectsList = Array.isArray(projects)
+    ? projects
+    : Array.isArray((projects as any)?.data)
+      ? (projects as any).data
+      : Array.isArray((projects as any)?.projects)
+        ? (projects as any).projects
+        : [];
+
+  const blogPostsList = Array.isArray(blogPosts)
+    ? blogPosts
+    : Array.isArray((blogPosts as any)?.data)
+      ? (blogPosts as any).data
+      : Array.isArray((blogPosts as any)?.posts)
+        ? (blogPosts as any).posts
+        : [];
 
   const getIcon = (category: string) => {
     const Icon = SERVICE_ICONS[category.toLowerCase()] ?? Code2;
@@ -505,7 +521,7 @@ export function Home() {
 
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(projects ?? []).slice(0, 3).map((project, idx) => {
+            {projectsList.slice(0, 3).map((project, idx) => {
               return (
                 <motion.div key={project.id} variants={fadeUp} className="group cursor-pointer">
                   <div className="rounded-2xl overflow-hidden mb-4 aspect-[4/3] relative bg-[#0D1826]">
@@ -598,7 +614,7 @@ export function Home() {
 
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(blogPosts ?? []).slice(0, 3).map((post, idx) => {
+            {blogPostsList.slice(0, 3).map((post, idx) => {
               return (
                 <motion.div key={post.id} variants={fadeUp} className="group cursor-pointer">
                   <Link href={`/blog/${post.slug}`}>

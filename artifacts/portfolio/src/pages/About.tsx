@@ -440,10 +440,10 @@ export function About() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: '-60px' }}
-                className="group"
+                className="group border-1 rounded-2xl border border-white/8 bg-[#0A1220] p-6 hover:bg-[#0D1826] transition-colors cursor-default"
               >
                 {/* Photo with clip-reveal */}
-                <div className="relative rounded-2xl overflow-hidden mb-6 aspect-[3/4] bg-[#0A1220]">
+                <div className="relative rounded-2xl overflow-hidden mb-6 aspect-[3/1] bg-[#0A1220]">
                   <motion.div
                     className="absolute inset-0 z-0"
                     custom={idx}
@@ -452,11 +452,11 @@ export function About() {
                     whileInView="show"
                     viewport={{ once: true }}
                   >
-                    <img
+                    {/* <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-106"
-                    />
+                    /> */}
                   </motion.div>
 
                   {/* gradient overlay */}
@@ -466,16 +466,14 @@ export function About() {
                   <motion.div
                     className="absolute inset-0 z-10 pointer-events-none"
                     style={{ background: 'rgba(0,220,185,0.07)', mixBlendMode: 'overlay' }}
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
+                    initial={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
                   />
 
                   {/* Name overlay — slides up on load */}
                   <motion.div
-                    className="absolute bottom-0 left-0 right-0 p-6 z-20"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    className="absolute top-0 left-0 right-0 p-6 z-20"
+                    initial={{ opacity: 1, y: 16 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.5 + idx * 0.12 }}
                   >
@@ -486,8 +484,7 @@ export function About() {
                   {/* Social icons */}
                   <motion.div
                     className="absolute top-4 right-4 z-20 flex flex-col gap-2"
-                    initial={{ opacity: 0, x: 12 }}
-                    whileHover={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 1, x: 12 }}
                     transition={{ duration: 0.25 }}
                   >
                     {/* always render but animate on parent hover via CSS */}
@@ -498,32 +495,32 @@ export function About() {
                           <Linkedin size={14} />
                         </a>
                       )}
-                      {member.socials.github && (
+                      {/* {member.socials.github && (
                         <a href={member.socials.github} target="_blank" rel="noopener noreferrer"
                           className="w-9 h-9 bg-[#080E14]/85 backdrop-blur-sm border border-white/15 rounded-xl flex items-center justify-center text-white hover:border-[#00DCB9]/60 hover:text-[#00DCB9] hover:shadow-[0_0_12px_rgba(0,220,185,0.3)] transition-all duration-200">
                           <Github size={14} />
                         </a>
-                      )}
-                      {member.socials.twitter && (
+                      )} */}
+                      {/* {member.socials.twitter && (
                         <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer"
                           className="w-9 h-9 bg-[#080E14]/85 backdrop-blur-sm border border-white/15 rounded-xl flex items-center justify-center text-white hover:border-[#00DCB9]/60 hover:text-[#00DCB9] hover:shadow-[0_0_12px_rgba(0,220,185,0.3)] transition-all duration-200">
                           <Twitter size={14} />
                         </a>
-                      )}
+                      )} */}
                     </div>
                   </motion.div>
                 </div>
 
-                {/* Bio — slides up */}
-                <motion.p
-                  className="text-[#5A6B8A] text-sm leading-relaxed"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 + idx * 0.12 }}
-                >
-                  {member.bio}
-                </motion.p>
+                    {/* Bio — slides up */}
+                    <motion.p
+                      className="text-[#5A6B8A] text-sm leading-relaxed"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.6 + idx * 0.12 }}
+                    >
+                      {member.bio}
+                    </motion.p>
               </motion.div>
             ))}
           </div>

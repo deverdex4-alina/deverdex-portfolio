@@ -149,15 +149,29 @@ function CaseStudyModal({
 }
 
 export function Portfolio() {
-  const { data: projects } = useGetProjects();
+  const { data: projectsResponse } = useGetProjects();
+
   const [activeFilter, setActiveFilter] = useState('All Projects');
-  const [selectedProject, setSelectedProject] = useState<{ project: Project; image: string } | null>(null);
+  const [selectedProject, setSelectedProject] = useState<{
+    project: Project;
+    image: string;
+  } | null>(null);
 
   const filters = ['All Projects', 'Web Design', 'Web Development', 'Mobile', 'Branding'];
 
-  const filteredProjects = (projects?.filter(p =>
-    activeFilter === 'All Projects' ? true : p.category === activeFilter
-  ) || []) as Project[];
+  const projects: Project[] = Array.isArray(projectsResponse)
+    ? projectsResponse
+    : Array.isArray(projectsResponse?.projects)
+      ? projectsResponse.projects
+      : Array.isArray(projectsResponse?.data)
+        ? projectsResponse.data
+        : [];
+
+  const filteredProjects = projects.filter(
+    (p) =>
+      activeFilter === 'All Projects' ||
+      p.category === activeFilter
+  );
 
   return (
     <div className="w-full">
@@ -200,11 +214,10 @@ export function Portfolio() {
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                    activeFilter === filter
+                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeFilter === filter
                       ? 'bg-white/10 border border-dever-teal text-white shadow-[0_0_15px_-5px_rgba(0,220,185,0.3)]'
                       : 'bg-transparent border border-white/10 text-dever-muted hover:border-white/30 hover:text-white'
-                  }`}
+                    }`}
                 >
                   {filter}
                 </button>

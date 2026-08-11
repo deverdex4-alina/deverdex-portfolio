@@ -9,8 +9,8 @@ import { RotateCcw, Pause, Play as PlayIcon, Zap, Sliders, Palette, Bot } from '
 function RouteTheBrief() {
   const routes = [
     { key: 'landing', label: 'Landing Page', sub: 'Clarity + conversion' },
-    { key: 'webapp',  label: 'Web App',      sub: 'Tools + workflows' },
-    { key: 'store',   label: 'Online Store', sub: 'Products + checkout' },
+    { key: 'webapp', label: 'Web App', sub: 'Tools + workflows' },
+    { key: 'store', label: 'Online Store', sub: 'Products + checkout' },
   ];
   const briefs = [
     { text: 'We sell handmade candles online and need a place to take orders.', answer: 'store' },
@@ -44,7 +44,7 @@ function RouteTheBrief() {
       <div className="px-5 py-3 border-b border-white/8 flex items-center justify-between shrink-0">
         <span className="font-mono text-[10px] text-[#5A6B8A] uppercase tracking-widest">FOYER PLAY STUDY</span>
         <div className="flex gap-2">
-          <span className="font-mono text-[10px] bg-white/6 border border-white/8 px-2.5 py-1 rounded text-white">SCORE {String(score).padStart(2,'0')}</span>
+          <span className="font-mono text-[10px] bg-white/6 border border-white/8 px-2.5 py-1 rounded text-white">SCORE {String(score).padStart(2, '0')}</span>
           <span className="font-mono text-[10px] bg-white/6 border border-white/8 px-2.5 py-1 rounded text-[#00DCB9]">STREAK {streak}</span>
         </div>
       </div>
@@ -69,7 +69,7 @@ function RouteTheBrief() {
               className={`group border rounded-xl p-3 text-left transition-all duration-200 text-sm font-semibold
                 ${feedback === 'correct' && r.key === brief.answer ? 'border-[#00DCB9] bg-[#00DCB9]/10 text-[#00DCB9]' :
                   feedback === 'wrong' && r.key === brief.answer ? 'border-[#00DCB9] bg-[#00DCB9]/10 text-[#00DCB9]' :
-                  'border-white/10 bg-white/4 text-white hover:border-[#00DCB9]/50 hover:bg-[#00DCB9]/8'}`}>
+                    'border-white/10 bg-white/4 text-white hover:border-[#00DCB9]/50 hover:bg-[#00DCB9]/8'}`}>
               <div>{r.label}</div>
               <div className="text-[10px] font-normal text-[#5A6B8A] mt-0.5">{r.sub}</div>
             </button>
@@ -175,11 +175,11 @@ function TypeScaleGen() {
 /** EX-004 — AI Colour Pairing */
 function AIColourPairing() {
   const moods = [
-    { label: 'Tech / SaaS', palette: ['#080E14','#0D1826','#00DCB9','#4FC3F7','#FFFFFF'] },
-    { label: 'Luxury / Finance', palette: ['#0A0805','#1A1408','#C9A84C','#E8D5A3','#FFFFFF'] },
-    { label: 'Health / Wellness', palette: ['#071410','#0D2318','#22C55E','#86EFAC','#FFFFFF'] },
-    { label: 'Creative / Agency', palette: ['#0F0814','#1A0E24','#A855F7','#F472B6','#FFFFFF'] },
-    { label: 'E-commerce / Bold', palette: ['#100808','#200E0E','#EF4444','#FCA5A5','#FFFFFF'] },
+    { label: 'Tech / SaaS', palette: ['#080E14', '#0D1826', '#00DCB9', '#4FC3F7', '#FFFFFF'] },
+    { label: 'Luxury / Finance', palette: ['#0A0805', '#1A1408', '#C9A84C', '#E8D5A3', '#FFFFFF'] },
+    { label: 'Health / Wellness', palette: ['#071410', '#0D2318', '#22C55E', '#86EFAC', '#FFFFFF'] },
+    { label: 'Creative / Agency', palette: ['#0F0814', '#1A0E24', '#A855F7', '#F472B6', '#FFFFFF'] },
+    { label: 'E-commerce / Bold', palette: ['#100808', '#200E0E', '#EF4444', '#FCA5A5', '#FFFFFF'] },
   ];
   const [active, setActive] = useState(0);
   const p = moods[active].palette;
@@ -205,7 +205,7 @@ function AIColourPairing() {
           <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="grid grid-cols-5 gap-2 flex-1">
             {p.map((color, i) => (
-              <div key={color+i} className="flex flex-col gap-1.5">
+              <div key={color + i} className="flex flex-col gap-1.5">
                 <div className="flex-1 rounded-xl border border-white/8 min-h-[80px]" style={{ background: color }} />
                 <span className="font-mono text-[9px] text-[#5A6B8A] uppercase text-center">{color}</span>
               </div>
@@ -238,7 +238,16 @@ const STATUS_BG: Record<string, string> = {
 
 /* ─── main component ─────────────────────────────────────────────── */
 export function Experiments() {
-  const { data: experiments } = useGetExperiments();
+  const { data: experimentsResponse } = useGetExperiments();
+
+  const experiments = Array.isArray(experimentsResponse)
+    ? experimentsResponse
+    : Array.isArray((experimentsResponse as any)?.data)
+      ? (experimentsResponse as any).data
+      : Array.isArray((experimentsResponse as any)?.experiments)
+        ? (experimentsResponse as any).experiments
+        : [];
+
   const [activeId, setActiveId] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
   const [key, setKey] = useState(0); // force-remount on restart

@@ -12,13 +12,13 @@ import blog4 from '@assets/generated_images/blog-4.jpg';
 const ALL_IMAGES = [blog1, blog2, blog3, blog4];
 
 const CATEGORIES = [
-  { label: 'All Posts',   value: 'All' },
-  { label: 'AI Search',   value: 'AI Search' },
-  { label: 'Business',    value: 'Business' },
-  { label: 'Company',     value: 'Company' },
+  { label: 'All Posts', value: 'All' },
+  { label: 'AI Search', value: 'AI Search' },
+  { label: 'Business', value: 'Business' },
+  { label: 'Company', value: 'Company' },
   { label: 'Development', value: 'Development' },
-  { label: 'E-Commerce',  value: 'E-Commerce' },
-  { label: 'WordPress',   value: 'WordPress' },
+  { label: 'E-Commerce', value: 'E-Commerce' },
+  { label: 'WordPress', value: 'WordPress' },
 ];
 
 function formatDate(iso: string) {
@@ -69,12 +69,20 @@ const sidebarItem = {
 };
 
 export function Blog() {
-  const { data: posts } = useGetBlogPosts();
+  const { data: postsResponse } = useGetBlogPosts();
+
+  const posts = Array.isArray(postsResponse)
+    ? postsResponse
+    : Array.isArray((postsResponse as any)?.data)
+      ? (postsResponse as any).data
+      : Array.isArray((postsResponse as any)?.posts)
+        ? (postsResponse as any).posts
+        : [];
   const [activeCategory, setActiveCategory] = useState('All');
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroY      = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const filtered = posts?.filter(p =>
@@ -308,11 +316,10 @@ export function Blog() {
                       <motion.li key={cat.value} variants={sidebarItem}>
                         <button
                           onClick={() => setActiveCategory(cat.value)}
-                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                            isActive
+                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all duration-200 ${isActive
                               ? 'bg-dever-teal/10 text-dever-teal border-l-2 border-dever-teal pl-[10px]'
                               : 'text-dever-muted hover:text-white hover:bg-white/4 border-l-2 border-transparent pl-[10px]'
-                          }`}
+                            }`}
                         >
                           <span>{cat.label}</span>
                           <span className={`font-mono text-xs tabular-nums ${isActive ? 'text-dever-teal' : 'text-white/25'}`}>
