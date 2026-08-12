@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGetServices } from '@workspace/api-client-react';
 import {
@@ -34,6 +34,22 @@ const fadeInUp = {
 
 export function Services() {
   const { data: services } = useGetServices();
+  const [activeService, setActiveService] = useState<string | null>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+
+    if (hash) {
+      setActiveService(hash);
+
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 100);
+    }
+  }, []);
 
   return (
     <div className="w-full">
@@ -94,7 +110,10 @@ export function Services() {
             <section
               key={service.id}
               id={service.slug}
-              className={`${bg} relative overflow-hidden py-24 border-b border-white/5`}
+              className={`${bg} relative overflow-hidden py-24 border-b border-white/5 transition-all duration-700 ${activeService === service.slug
+                  ? 'ring-2 ring-dever-teal/70 shadow-[0_0_60px_rgba(0,220,185,0.18)]'
+                  : ''
+                }`}
             >
               {/* subtle teal grid overlay on even */}
               {isEven && (
@@ -177,11 +196,10 @@ export function Services() {
                           return (
                             <div
                               key={pIdx}
-                              className={`flex items-center justify-between px-8 py-7 transition-all group ${
-                                isHighlighted
+                              className={`flex items-center justify-between px-8 py-7 transition-all group ${isHighlighted
                                   ? 'bg-dever-teal/5 border-l-2 border-dever-teal'
                                   : 'hover:bg-white/3'
-                              }`}
+                                }`}
                             >
                               <div>
                                 <div className="font-mono text-sm text-white uppercase tracking-wider mb-1">

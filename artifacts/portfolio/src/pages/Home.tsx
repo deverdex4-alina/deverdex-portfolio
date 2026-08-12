@@ -219,10 +219,10 @@ export function Home() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/8">
             {[
-              { icon: BarChart3, value: 50, suffix: '+', label: 'Projects Delivered' },
+              { icon: BarChart3, value: 150, suffix: '+', label: 'Projects Delivered' },
               { icon: Star, value: 5, suffix: '.0★', label: 'Average Rating', color: '#FF6B35' },
               { icon: Globe2, value: 15, suffix: '+', label: 'Countries Served' },
-              { icon: Award, value: 3, suffix: '+ Yrs', label: 'Industry Experience' },
+              { icon: Award, value: 5, suffix: '+ Yrs', label: 'Industry Experience' },
             ].map(({ icon: Icon, value, suffix, label, color }) => (
               <motion.div
                 key={label}
@@ -264,13 +264,13 @@ export function Home() {
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: Code2, name: 'Web Development', desc: 'Custom websites, web apps, landing pages and business platforms built with modern stacks.', category: 'development', href: '/services#web-development' },
-              { icon: ShoppingBag, name: 'E-Commerce', desc: 'Shopify stores, WooCommerce sites and custom e-commerce solutions that convert.', category: 'ecommerce', href: '/services#ecommerce' },
+              { icon: Code2, name: 'Web Development', desc: 'Custom websites, web apps, landing pages and business platforms built with modern stacks.', category: 'development', href: '/services/web-development' },
+              { icon: ShoppingBag, name: 'E-Commerce', desc: 'Shopify stores, WooCommerce sites and custom e-commerce solutions that convert.', category: 'ecommerce', href: '/services/ecommerce' },
               { icon: Palette, name: 'UI/UX Design', desc: 'Research-led design — wireframes, prototypes, design systems and responsive UI.', category: 'design', href: '/services#web-design' },
               { icon: Cpu, name: 'Custom Software', desc: 'Web applications, SaaS platforms, dashboards and business automation systems.', category: 'software', href: '/services#custom-software' },
-              { icon: Smartphone, name: 'Mobile Apps', desc: 'iOS & Android apps built with React Native — native performance, one codebase.', category: 'mobile', href: '/services#mobile-apps' },
-              { icon: Bot, name: 'AI Solutions', desc: 'AI integrations, assistants, automation and AI-powered application development.', category: 'ai', href: '/services#ai' },
-              { icon: Search, name: 'SEO & AEO', desc: 'Technical SEO, structured data and AI search optimization so you get found everywhere.', category: 'marketing', href: '/services#seo-aeo' },
+              { icon: Smartphone, name: 'Mobile Apps', desc: 'iOS & Android apps built with React Native — native performance, one codebase.', category: 'mobile', href: '/services/mobile-apps' },
+              { icon: Bot, name: 'AI Solutions', desc: 'AI integrations, assistants, automation and AI-powered application development.', category: 'ai', href: '/services/ai' },
+              { icon: Search, name: 'SEO & AEO', desc: 'Technical SEO, structured data and AI search optimization so you get found everywhere.', category: 'marketing', href: '/services/seo-aeo' },
               { icon: Wrench, name: 'Maintenance', desc: 'Ongoing support, security monitoring, performance optimization and content updates.', category: 'maintenance', href: '/services#maintenance' },
             ].map((svc) => (
               <motion.div key={svc.name} variants={fadeUp}
