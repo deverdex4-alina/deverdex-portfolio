@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGetProjects } from '@workspace/api-client-react';
 import { X, ExternalLink, ArrowRight, Tag } from 'lucide-react';
 
-import portfolio1 from '@assets/generated_images/portfolio-1.jpg';
-import portfolio2 from '@assets/generated_images/portfolio-2.jpg';
+import portfolio1 from '@assets/generated_images/fintech.png';
+import portfolio2 from '@assets/generated_images/luxe.png';
 import portfolio3 from '@assets/generated_images/portfolio-3.jpg';
-import portfolio4 from '@assets/generated_images/portfolio-4.jpg';
-import portfolio5 from '@assets/generated_images/portfolio-5.jpg';
-import portfolio6 from '@assets/generated_images/portfolio-6.jpg';
+import portfolio4 from '@assets/generated_images/uplift.png';
+import portfolio5 from '@assets/generated_images/medicore.png';
+import portfolio6 from '@assets/generated_images/art-gallery.png';
 
 const ALL_IMAGES = [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
 
@@ -65,7 +65,7 @@ function CaseStudyModal({
         {/* Close */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/20 hover:bg-black/20 flex items-center justify-center transition-colors"
         >
           <X size={16} className="text-white" />
         </button>
@@ -157,7 +157,13 @@ export function Portfolio() {
     image: string;
   } | null>(null);
 
-  const filters = ['All Projects', 'Web Design', 'Web Development', 'Mobile', 'Branding'];
+  const filters = [
+    'All Projects',
+    'Web Design',
+    'Web Development',
+    'Mobile Apps',
+    'Branding',
+  ];
 
   const projects: Project[] = Array.isArray(projectsResponse)
     ? projectsResponse
@@ -215,8 +221,8 @@ export function Portfolio() {
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
                   className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeFilter === filter
-                      ? 'bg-white/10 border border-dever-teal text-white shadow-[0_0_15px_-5px_rgba(0,220,185,0.3)]'
-                      : 'bg-transparent border border-white/10 text-dever-muted hover:border-white/30 hover:text-white'
+                    ? 'bg-white/10 border border-dever-teal text-white shadow-[0_0_15px_-5px_rgba(0,220,185,0.3)]'
+                    : 'bg-transparent border border-white/10 text-dever-muted hover:border-white/30 hover:text-white'
                     }`}
                 >
                   {filter}
@@ -233,7 +239,7 @@ export function Portfolio() {
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence>
               {filteredProjects.map((project, idx) => {
-                const image = ALL_IMAGES[idx % ALL_IMAGES.length];
+                const image = project.imageUrl || '';
                 return (
                   <motion.div
                     key={project.id}

@@ -11,8 +11,8 @@ import {
 } from 'lucide-react';
 
 // Portfolio images
-import portfolio1 from '@assets/generated_images/portfolio-1.jpg';
-import portfolio2 from '@assets/generated_images/portfolio-2.jpg';
+import portfolio1 from '@assets/generated_images/fintech.png';
+import portfolio2 from '@assets/generated_images/luxe.png';
 import portfolio3 from '@assets/generated_images/portfolio-3.jpg';
 
 // Blog images
@@ -118,6 +118,8 @@ export function Home() {
       : Array.isArray((projects as any)?.projects)
         ? (projects as any).projects
         : [];
+
+  const project = projectsList.find((p) => p.id === 5);
 
   const blogPostsList = Array.isArray(blogPosts)
     ? blogPosts
@@ -524,24 +526,31 @@ export function Home() {
             {projectsList.slice(0, 3).map((project, idx) => {
               return (
                 <motion.div key={project.id} variants={fadeUp} className="group cursor-pointer">
-                  <div className="rounded-2xl overflow-hidden mb-4 aspect-[4/3] relative bg-[#0D1826]">
-                    <img
-                      src={PORTFOLIO_IMAGES[idx % PORTFOLIO_IMAGES.length]}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-[#080E14]/0 group-hover:bg-[#080E14]/30 transition-all duration-500" />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-[#080E14]/80 border border-white/10 text-[11px] font-mono text-white px-2.5 py-1 rounded-full uppercase tracking-wider">
-                        {project.category}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
-                      {(project.tags ?? []).slice(0, 3).map((tag) => (
-                        <span key={tag} className="bg-white/10 backdrop-blur-sm text-[10px] font-mono text-white/80 px-2 py-0.5 rounded-full">{tag}</span>
-                      ))}
-                    </div>
-                  </div>
+                  <a href={project.liveUrl || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block">
+                    {project && (
+                      <div className="rounded-2xl overflow-hidden mb-4 aspect-[4/3] relative bg-[#0D1826]">
+                        <img
+                          src={project.imageUrl}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-[#080E14]/0 group-hover:bg-[#080E14]/30 transition-all duration-500" />
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-[#080E14]/80 border border-white/10 text-[11px] font-mono text-white px-2.5 py-1 rounded-full uppercase tracking-wider">
+                            {project.category}
+                          </span>
+                        </div>
+                        <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
+                          {(project.tags ?? []).slice(0, 3).map((tag) => (
+                            <span key={tag} className="bg-white/10 backdrop-blur-sm text-[10px] font-mono text-white/80 px-2 py-0.5 rounded-full">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </a>
                   <h3 className="font-bold text-white mb-1.5 group-hover:text-[#00DCB9] transition-colors">{project.title}</h3>
                   <p className="text-sm text-[#5A6B8A] line-clamp-2">{project.description}</p>
                 </motion.div>
